@@ -7,24 +7,6 @@ var len=0;
 
 function setup() {
 
-    console.log("ciao");
-    crypt("ciaocomestai", "d");
-    console.log(result);
-    decrypt("nwlzqzxsdeot", "lol");
-    console.log(result);
-    all_caesar("fldrfrphvwdl");
-
-
-    for(var i=2; i<6; i++){
-        var z=IC(lol, i);
-        if(ICmax<z){
-            ICmax=z;
-            len=i;
-        }
-        console.log(i + " " + IC(lol, i));
-    }
-    console.log("La lunghezza più probabile è " + len + " dato che IC= " + ICmax);
-
 }
 
 function lal(){
