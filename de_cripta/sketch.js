@@ -1,12 +1,11 @@
 var alph=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var engF=[8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749, 7.507, 1.929, 0.095, 5.987, 6.327, 9.056, 2.758, 0.978, 2.36, 0.15, 1.974, 0.074];
-var result="";
-var lol= "ciao";
+var result;
+var lol="nimakvigvzankwnsvzuarzadrzeggvtowvrwukhwqxefnmccplinkwnwgkobquiqjm";
+var ICmax=0;
+var len=0;
 
 function setup() {
-
-    // createCanvas(400, 400);
-    // background(51);
 
     console.log("ciao");
     crypt("ciaocomestai", "d");
@@ -15,9 +14,7 @@ function setup() {
     console.log(result);
     all_caesar("fldrfrphvwdl");
 
-    var lol="nimakvigvzankwnsvzuarzadrzeggvtowvrwukhwqxefnmccplinkwnwgkobquiqjm";
-    var ICmax=0;
-    var len=0;
+
     for(var i=2; i<6; i++){
         var z=IC(lol, i);
         if(ICmax<z){
@@ -27,9 +24,25 @@ function setup() {
         console.log(i + " " + IC(lol, i));
     }
     console.log("La lunghezza più probabile è " + len + " dato che IC= " + ICmax);
-    string_chi(result, len);
 
 }
+
+function lal(){
+    var text = document.getElementById("text").value;
+
+    for(var i=2; i<6; i++){
+        var z=IC(text, i);
+        if(ICmax<z){
+            ICmax=z;
+            len=i;
+        }
+        console.log(i + " " + IC(lol, i));
+    }
+    console.log("ciao");
+    string_chi(text, len);
+    document.getElementById('label1').innerHTML=result;
+}
+
 
 function crypt(str, key){
 
@@ -154,7 +167,7 @@ function gg(str){
     return z;
 }
 
-var dio;
+
 
 function string_chi(str, len){
 
@@ -173,7 +186,7 @@ function string_chi(str, len){
         //printf("#%d: %c \n", i, c);
         //printf("%c", c);
     }
-    dio=c;
+    result=c;
     console.log(c);
     //printf("%s\n\n", c.c_str());
 
@@ -182,7 +195,7 @@ function string_chi(str, len){
 function letter(str){
 
 
-    var strn;
+    var strn="";
     var point=0;
     var chi_max=10000000;
     var chis=[];
@@ -190,8 +203,11 @@ function letter(str){
 
 
     for(var a=0; a<alph.length; a++){
+        strn="";
         for(var i=0; i<str.length; i++){
+
             for(var k=0; k<alph.length; k++){
+
                 if(str[i]==alph[k]){
                     strn+=alph[(26+(k-a))%alph.length];
                     break;
@@ -209,21 +225,21 @@ function letter(str){
 
     }
 
-    for(var i=0; i<alph.length; i++){
-        for(var j=i+1; j<alph.length; j++){
-            if(chis[j]<chis[i]){
-
-                var temp=chis[i];
-                chis[i]=chis[j];
-                chis[j]=temp;
-
-                var temp2=alph_x[i];
-                alph_x[i]=alph_x[j];
-                alph_x[j]=temp2;
-
-            }
-        }
-    }
+    // for(var i=0; i<alph.length; i++){
+    //     for(var j=i+1; j<alph.length; j++){
+    //         if(chis[j]<chis[i]){
+    //
+    //             var temp=chis[i];
+    //             chis[i]=chis[j];
+    //             chis[j]=temp;
+    //
+    //             var temp2=alph_x[i];
+    //             alph_x[i]=alph_x[j];
+    //             alph_x[j]=temp2;
+    //
+    //         }
+    //     }
+    // }
     for(var i=0; i<alph.length; i++){
         //cout << setw(10);
         console.log(alph_x[i] + " " + chis[i]);
@@ -250,15 +266,15 @@ function chi_quadro(str){
     // }
     //printf("som: %d\n", som);
     som=str.length;
-    //console.log(alph.length);
+    console.log(str);
 
     for(var k=0; k<alph.length; k++){
-        //console.log("oll");
+        //console.log(k);
         count=0;
         for(var i=0; i<str.length; i++){
             //console.log("alph: " + alph[k]);
             if(str[i]==alph[k]){
-                count+=1;
+                count++;
             }
         }
         //console.log("count: " + count);
