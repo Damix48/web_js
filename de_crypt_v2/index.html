@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="encrypt decrypt decipher encipher">
+    <meta name="author" content="Damiano Zanardo">
+
+    <title>De:Crypt</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <!-- <link href="css/scrolling-nav.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">De:Crypt</span>
+                    <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="">Link1</a>
+                    <a class="mdl-navigation__link" href="">Link2</a>
+                    <a class="mdl-navigation__link" href="">Link3</a>
+                    <a class="mdl-navigation__link" href="">Link4</a>
+                </nav>
+
+            </div>
+        </header>
+            <div class="mdl-layout__drawer">
+              <span class="mdl-layout-title">De:Crypt</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="">Link1</a>
+                    <a class="mdl-navigation__link" href="">Link2</a>
+                    <a class="mdl-navigation__link" href="">Link3</a>
+                    <a class="mdl-navigation__link" href="">Link4</a>
+                </nav>
+            </div>
+        <main class="mdl-layout__content">
+
+            <div class="page-content container" id="app">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>The App</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <form action="#">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <textarea class="mdl-textfield__input" type="text" id="text"></textarea>
+                                <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+                            </div>
+                        </form>
+                        <!-- La barra blu di selezione colpa di bootstrap -->
+                        <button id="bt1" onclick="lal()" class="mdl-button mdl-js-button mdl-button--raised">Click</button>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mdl-card mdl-shadow--2dp container">
+
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">What is De:Crypt?</h2>
+                            </div>
+
+                            <div class="mdl-card__media" style="text-align:center; background: 0;">
+                                <img src="locked.png" width="160" height="160" border="0" alt=""
+                                style="padding:10px; margin: auto;">
+                            </div>
+
+                            <div class="mdl-card__supporting-text">
+                                <p>This is a simple web app for encrypt, decipher, and decrypt.</p>
+                                <p>This tool isn't very good but it is an app created by a simple student.</p>
+                            </div>
+
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#info">Read more</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="page-content container" id="info">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>What is it?</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <h3>What can this do?</h3>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mdl-card mdl-shadow--2dp container">
+
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">What is De:Crypt?</h2>
+                            </div>
+
+                            <div class="mdl-card__media" style="text-align:center; background: 0;">
+                                <img src="locked.png" width="160" height="160" border="0" alt=""
+                                style="padding:10px; margin: auto;">
+                            </div>
+
+                            <div class="mdl-card__supporting-text">
+                                <p>This is a simple web app for encrypt, decipher, and decrypt.</p>
+                                <p>This tool isn't very good but it is an app created by a simple student.</p>
+                            </div>
+
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="#app">TRY!</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </main>
+    </div>
+
+
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+</body>
+
+</html>
