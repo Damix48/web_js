@@ -1,0 +1,19 @@
+.mdl-textfield__label{
+    margin-bottom: 0;
+}
+
+#div_text{
+    width: 100%;
+}
+
+#text{
+    width: 100%;
+}
+
+.spacer {
+    margin-top: 40px; /* define margin as you see fit */
+}
+
+.margin-h4{
+    padding-bottom: 24px;
+}
