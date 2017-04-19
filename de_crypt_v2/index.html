@@ -28,7 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
@@ -45,8 +44,8 @@
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="">Link1</a>
-                    <a class="mdl-navigation__link" href="">Link2</a>
+                    <a class="mdl-navigation__link" href="#app">App</a>
+                    <a class="mdl-navigation__link" href="#info">Info</a>
                     <a class="mdl-navigation__link" href="">Link3</a>
                     <a class="mdl-navigation__link" href="">Link4</a>
                 </nav>
@@ -56,8 +55,8 @@
             <div class="mdl-layout__drawer">
               <span class="mdl-layout-title">De:Crypt</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="">Link1</a>
-                    <a class="mdl-navigation__link" href="">Link2</a>
+                    <a class="mdl-navigation__link" href="#app">App</a>
+                    <a class="mdl-navigation__link" href="#info">Info</a>
                     <a class="mdl-navigation__link" href="">Link3</a>
                     <a class="mdl-navigation__link" href="">Link4</a>
                 </nav>
@@ -70,18 +69,45 @@
                         <h1>The App</h1>
                     </div> -->
                     <div class="spacer"></div>
+
                     <div class="col-lg-6 mdl-shadow--2dp margin-h4">
+
                         <h4>De:Crypt</h4>
+                        <div id="option" style="text-align:center; padding: 0px 10px">
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1" style="float:left;">
+                                <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+                                <span class="mdl-radio__label">Encrypt</span>
+                            </label>
+
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2" checked>
+                                <span class="mdl-radio__label">Decipher</span>
+                            </label>
+
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3" style="float:right;">
+                                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3" checked>
+                                <span class="mdl-radio__label">Decrypt</span>
+                            </label>
+                        </div>
+
                         <form action="#">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div_text">
-                                <textarea class="mdl-textfield__input" type="text" id="text"></textarea>
+                                <textarea class="mdl-textfield__input" type="text" id="text" rows="1"></textarea>
+                                    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+                                    <script src="http://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
+                                    <script>$('#text').autosize()</script>
                                 <label class="mdl-textfield__label">Text</label>
                             </div>
                         </form>
-                        <!-- La barra blu di selezione colpa di bootstrap -->
+                        <form action="#">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div_text">
+                                <input class="mdl-textfield__input" type="text" id="key"></input>
+                                <label class="mdl-textfield__label">Key</label>
+                            </div>
+                        </form>
+
                         <button id="bt1" onclick="lal()" class="mdl-button mdl-js-button mdl-button--raised">Click</button>
                     </div>
-
                     <div class="col-lg-6">
                         <div class="mdl-card mdl-shadow--2dp container">
 
@@ -162,6 +188,7 @@
 
     <!-- Scrolling Nav JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
+    <script src="js/autosize.js"></script>
     <script src="js/scrolling-nav.js"></script>
 
 </body>
