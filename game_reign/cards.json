@@ -1,0 +1,353 @@
+{
+    "cards": [{
+        "common": [
+            {
+            "title": "Card 1",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 2,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 2",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 3",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 4",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 5",
+            "category": "Category 3",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            }
+        ],
+        "rare": [
+            {
+            "title": "Card 1",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 2",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 3",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 4",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 5",
+            "category": "Category 3",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            }
+        ],
+        "epic": [
+            {
+            "title": "Card 1",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 2",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 3",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 4",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 5",
+            "category": "Category 3",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            }
+        ],
+        "leggendary": [
+            {
+            "title": "Card 1",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 2",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 3",
+            "category": "Category 2",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 4",
+            "category": "Category 1",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            },
+            {
+            "title": "Card 5",
+            "category": "Category 3",
+            "actions": [{
+                "religion": -1,
+                "army": 1,
+                "economy":0,
+                "inhabitants":0
+                },
+                {
+                    "religion": -1,
+                    "army": 1,
+                    "economy":0,
+                    "inhabitants":0
+                }
+            ]
+            }
+        ]
+    }
+    ]
+}
