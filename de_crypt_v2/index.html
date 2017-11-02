@@ -73,25 +73,26 @@
                     <div class="col-lg-6 mdl-shadow--2dp margin-h4">
 
                         <h4>De:Crypt</h4>
-                        <div id="option" style="text-align:center; padding: 0px 10px">
+                        <!-- nimakvigvzankwnsvzuarzadrzeggvtowvrwukhwqxefnmccplinkwnwgkobquiqjm -->
+                        <form id="option" name="option" style="text-align:center; padding: 0px 10px">
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1" style="float:left;">
                                 <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
                                 <span class="mdl-radio__label">Encrypt</span>
                             </label>
 
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2" checked>
+                                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
                                 <span class="mdl-radio__label">Decipher</span>
                             </label>
 
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3" style="float:right;">
-                                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3" checked>
+                                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3">
                                 <span class="mdl-radio__label">Decrypt</span>
                             </label>
-                        </div>
+                        </form>
 
                         <form action="#">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div_text">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div-text">
                                 <textarea class="mdl-textfield__input" type="text" id="text" rows="1"></textarea>
                                     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
                                     <script src="http://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script>
@@ -100,13 +101,27 @@
                             </div>
                         </form>
                         <form action="#">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div_text">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div-key">
                                 <input class="mdl-textfield__input" type="text" id="key"></input>
                                 <label class="mdl-textfield__label">Key</label>
                             </div>
                         </form>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="div-result">
+                            <textarea class="mdl-textfield__input" type="text" id="result" rows="1" disabled></textarea>
+                                <!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+                                <script src="http://cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.4/jquery.autosize.min.js"></script> -->
+                                <script>$('#result').autosize()</script>
+                            <label class="mdl-textfield__label" id="result-label">Result</label>
+                        </div>
 
-                        <button id="bt1" onclick="lal()" class="mdl-button mdl-js-button mdl-button--raised">Click</button>
+                        <!-- <button id="bt1" onclick="lal()" class="mdl-button mdl-js-button mdl-button--raised">Click</button> -->
+                        <button id="bt1" class="mdl-button mdl-js-button mdl-button--raised">Get Result</button>
+                        <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+                            <div class="mdl-snackbar__text"></div>
+                            <button class="mdl-snackbar__action" type="button"></button>
+                        </div>
+
+
                     </div>
                     <div class="col-lg-6">
                         <div class="mdl-card mdl-shadow--2dp container">
@@ -190,6 +205,10 @@
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/autosize.js"></script>
     <script src="js/scrolling-nav.js"></script>
+
+    <!-- Script -->
+    <script src="js/sketch2.js"></script>
+    <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
 
 </body>
 
