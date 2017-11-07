@@ -65,7 +65,7 @@ function polygon(n) {
 
   colorMode(HSB);
   strokeWeight(2);
-  stroke(c * 0.9 * map(n, 0, number, 0, 1), 50, 200);
+  stroke(35 + c * 0.9 * map(n, 0, number, 0, 1), 50, 200);
   noFill();
   beginShape();
   for (let i = 0; i < p.length; i++) {
