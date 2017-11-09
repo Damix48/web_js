@@ -1,11 +1,11 @@
-let radius = 150;
+let radius = 120;
 let a = 0;
 let r;
 let p;
 let target;
 let ball = [];
 let index = [];
-let number = 13;
+let number = 16;
 let speed = 3;
 let np = [];
 let position;
@@ -40,7 +40,10 @@ function draw() {
   }
 
   points();
-  // console.log(frameRate());
+  // if (frameRate() < 50) {
+  //   console.log(frameCount + ", " + frameRate());
+
+  // }
   // console.log(c);
   if (c == 255) {
     l = -1;
@@ -50,6 +53,10 @@ function draw() {
   c = c + l;
   // c++;
 
+  // if (frameCount > number) {
+  //   noLoop();
+
+  // }
 }
 
 function polygon(n) {
@@ -75,6 +82,7 @@ function polygon(n) {
   endShape(CLOSE);
 
   np[n - 3] = p;
+
 }
 
 function points() {
@@ -83,22 +91,27 @@ function points() {
     for (let i = 0; i < np.length; i++) {
       index[i] = 0;
       ball.push(np[i][index[i]]);
-      vel[i] = 0.4;
+      vel[i] = 0.5;
+      // vel[i] = vel[i] * (sin(i * PI / number));
     }
   }
 
   for (var i = 0; i < ball.length; i++) {
     push()
     rotate(PI / (i + 3));
-    // console.log(vel[i]);
-    vel[i] = vel[i] + 0.05;
-    if (vel[i] > 1) {
+    let temp = (vel[i] + (((number - i - 2) / 2 * (i + 3)) / 1000));
+    // console.log("temp: " + round(temp * 1e12) / 1e12);
+    // vel[i] = round(temp * 1e12) / 1e12;
+    vel[i] = temp;
+
+
+    if (vel[i] >= 1) {
       vel[i] = 0;
       index[i] = (index[i] + 1) % [i + 3];
       ball[i] = np[i][index[i]];
     }
-    // console.log(index);
-    // console.log(vel);
+
+    console.log(vel[i]);
     v1 = p5.Vector.lerp(ball[i], np[i][(index[i] + 1) % (i + 3)], vel[i]);
 
     strokeWeight(2);
