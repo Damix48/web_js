@@ -6,16 +6,21 @@ let c = 0;
 
 let a;
 let b;
+let z = 0;
 
+let canvas;
 
 function setup() {
-  createCanvas((number - 1) * 25 * 2 + 40, (number - 3) * 20 + 20);
+  canvas = createCanvas((number - 1) * 25 * 2 + 40, (number - 3) * 20 + 20);
   a = [];
   b = [];
 
 }
 
 function draw() {
+  let px = (windowWidth - width) / 2;
+  let py = (windowHeight - height) / 2;
+  canvas.position(px, py);
   background(51);
   translate(20, 20);
   // rotate(-PI / 2);
@@ -40,6 +45,9 @@ function draw() {
     l = 1;
   }
   c = c + l;
+  if (z < 25) {
+    z = lerp(z, 25, 0.1);
+  }
 }
 
 
@@ -52,7 +60,7 @@ function polygon(n) {
   noFill();
 
   let y_ = n - 3;
-  line(0, y_ * 20, 25 * n * 2, y_ * 20);
+  line(0, y_ * 20, z * n * 2, y_ * 20);
 
   fill(51);
   if (a[n] > (25 * n * 2)) {
@@ -61,6 +69,6 @@ function polygon(n) {
   } else if (a[n] <= 0) {
     b[n] = 1;
   }
-  a[n] = b[n] * (((number - n) / 2 * (n)) / 5) * frameCount % (25 * n * 2);
+  a[n] = b[n] * (((number - n) / 2 * (n)) / 5) * frameCount % (z * n * 2);
   ellipse(a[n], y_ * 20, 10, 10);
 }
