@@ -15,11 +15,11 @@ let ll = 1;
 let v1;
 let vtarget;
 let vel = [];
-
+let canvas;
 let b = 0;
 
 function setup() {
-  createCanvas(600, 600);
+  canvas = createCanvas(600, 600);
   a = 0;
 }
 
@@ -27,6 +27,9 @@ let ind = 0;
 let innn = 0;
 
 function draw() {
+  let px = (windowWidth - width) / 2;
+  let py = (windowHeight - height) / 2;
+  canvas.position(px, py);
   background(51);
   translate(width / 2, height / 2);
   rotate(-PI / 2);
@@ -64,20 +67,23 @@ function draw() {
 }
 
 function polygon(n) {
+  // n = 4;
   rotate(PI / n);
   r = (radius / sin(PI / n)) / 2;
   p = [];
+
+
+  colorMode(HSB);
+  strokeWeight(2);
+  stroke(35 + c * 0.9 * map(n, 0, number, 0, 1), 50, 200);
+  noFill();
+  // n = 4;
   for (let i = 1; i <= n; i++) {
     // p[n] = [];
     let x_ = r * cos(TWO_PI * (i - 2) / n);
     let y_ = r * sin(TWO_PI * (i - 2) / n);
     p.push(createVector(x_, y_));
   }
-
-  colorMode(HSB);
-  strokeWeight(2);
-  stroke(35 + c * 0.9 * map(n, 0, number, 0, 1), 50, 200);
-  noFill();
   beginShape();
   for (let i = 0; i < p.length; i++) {
     // console.log(p[i].x);
