@@ -16,6 +16,8 @@ let v1;
 let vtarget;
 let vel = [];
 
+let b = 0;
+
 function setup() {
   createCanvas(600, 600);
   a = 0;
@@ -57,6 +59,8 @@ function draw() {
   //   noLoop();
 
   // }
+
+  b++;
 }
 
 function polygon(n) {
@@ -92,32 +96,41 @@ function points() {
       index[i] = 0;
       ball.push(np[i][index[i]]);
       vel[i] = 0.5;
+      b = 0;
       // vel[i] = vel[i] * (sin(i * PI / number));
     }
   }
 
   for (var i = 0; i < ball.length; i++) {
+    // for (var k = 0; k < ball.length; k++) {
+    //   b[k]++;
+    // }
     push()
     rotate(PI / (i + 3));
-    let temp = (vel[i] + (((number - i - 2) / 2 * (i + 3)) / 1000));
-    // console.log("temp: " + round(temp * 1e12) / 1e12);
+    let temp = ((((number - i - 2) / 2 * (i + 3)) / 1000) * b + 0.5) % 1;
+
+    // console.log("temp: " + floor(temp * 10));
     // vel[i] = round(temp * 1e12) / 1e12;
-    vel[i] = temp;
 
 
-    if (vel[i] >= 1) {
-      vel[i] = 0;
+
+    if (vel[i] > temp) {
+      // console.log("ciao");
+      vel[i] = 0.5;
       index[i] = (index[i] + 1) % [i + 3];
       ball[i] = np[i][index[i]];
+      // b = 0;
+      // console.log(b);
     }
+    vel[i] = temp;
 
-    console.log(vel[i]);
+    // console.log(index[i]);
     v1 = p5.Vector.lerp(ball[i], np[i][(index[i] + 1) % (i + 3)], vel[i]);
 
     strokeWeight(2);
     stroke(255);
     fill(255, c);
-    ellipse(v1.x, v1.y, 10, 10);
+    ellipse(v1.x, v1.y, 15, 15);
     pop();
   }
 
