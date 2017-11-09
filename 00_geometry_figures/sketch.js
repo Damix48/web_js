@@ -27,9 +27,9 @@ let ind = 0;
 let innn = 0;
 
 function draw() {
-  let px = (windowWidth - width) / 2;
-  let py = (windowHeight - height) / 2;
-  canvas.position(px, py);
+  // let px = (windowWidth - width) / 2;
+  // let py = (windowHeight - height) / 2;
+  // canvas.position(px, py);
   background(51);
   translate(width / 2, height / 2);
   rotate(-PI / 2);
