@@ -29,14 +29,13 @@ function draw() {
   // rotate(PI);
   for (var i = 3; i < number; i++) {
     push();
-    polygon(i);
+    lines(i);
     pop();
 
   }
   if (frameCount == 1) {
     for (var i = 3; i < number; i++) {
       a[i] = 0;
-      b[i] = 0;
     }
   }
   if (c == 255) {
@@ -51,24 +50,22 @@ function draw() {
 }
 
 
-function polygon(n) {
-  // line(0, 0, 10, 10);
-  // r = 10 * (radius / sin(PI / n)) / n;
+function lines(n) {
   colorMode(HSB);
-  strokeWeight(2);
+  strokeWeight(3);
   stroke(35 + c * 0.9 * map(n, 0, number, 0, 1), 50, 200);
   noFill();
 
   let y_ = n - 3;
   line(0, y_ * 20, z * n * 2, y_ * 20);
 
-  fill(51);
-  if (a[n] > (25 * n * 2)) {
 
-    b[n] = -1;
-  } else if (a[n] <= 0) {
-    b[n] = 1;
-  }
-  a[n] = b[n] * (((number - n) / 2 * (n)) / 5) * frameCount % (z * n * 2);
-  ellipse(a[n], y_ * 20, 10, 10);
+
+  let v=(((number - n) / 2 * (n)) / 5)*0.8;
+  a[n] = v * frameCount % (z * n * 2);
+  strokeWeight(3);
+  fill(51);
+  rectMode(CENTER);
+  rect(a[n], y_ * 20, 10, 10);
+  // ellipse(a[n], y_ * 20, 10, 10);
 }
