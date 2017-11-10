@@ -1,13 +1,14 @@
-let r = 150;
+let r = 80; //150
 let c = 0;
-let number = 14;
+let number = 70; //16
 
 let poly = [];
 let dots = [];
 
 
 function setup() {
-  canvas = createCanvas(800, 800);
+  // canvas = createCanvas(800, 800);
+  canvas = createCanvas(windowWidth, windowHeight);
   // a = 0;
 }
 
