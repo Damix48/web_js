@@ -1,22 +1,3 @@
-// let radius = 120;
-// let a = 0;
-// let r;
-// let p;
-// let target;
-// let ball = [];
-// let index = [];
-// let number = 16;
-// let speed = 3;
-// let np = [];
-// let position;
-// let c = 0;
-// let ll = 1;
-
-// let v1;
-// let vtarget;
-// let vel = [];
-// let canvas;
-// let b = 0;
 let r = 150;
 let c = 0;
 let number = 14;
