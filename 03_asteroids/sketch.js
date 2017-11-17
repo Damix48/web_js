@@ -4,7 +4,7 @@ let asteroids = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
-  for (var i = 0; i < 20; i++) {
+  for (var i = 0; i < 10; i++) {
     asteroids.push(new Asteroid);
   }
   // asteroid = new Asteroid();
@@ -19,7 +19,13 @@ function draw() {
     asteroids[i].show();
     asteroids[i].update();
   }
-
+  if (ship.qBoost > 30) {
+    stroke(255);
+  } else {
+    stroke(255, 50);
+  }
+  strokeWeight(5);
+  line(width, height, width, map(ship.qBoost, 0, 180, height, 0));
 }
 
 function keyPressed() {
@@ -33,8 +39,8 @@ function keyPressed() {
     ship.setSteer(-0.1);
   }
   if (keyCode == 90) {
-    ship.setEngine(true);
-    ship.setBoost();
+    // ship.setEngine(true);
+    ship.setBoost(true);
   }
 
   //add boost clicking 'z'
@@ -45,8 +51,10 @@ function keyReleased() {
     ship.setEngine(false);
   } else if (keyCode == RIGHT_ARROW || keyCode == LEFT_ARROW) {
     ship.setSteer(0);
+  } else if (keyCode == 90) {
+    ship.setBoost(false);
+    // ship.setEngine(false);
   }
-
 }
 
 class Ship {
@@ -61,12 +69,15 @@ class Ship {
     this.speed = createVector(0, 0);
     this.qSpeed = 0.1;
     this.boost = false;
+    this.qBoost = 180;
   }
 
   update() {
     this.steer();
     this.speedUp();
+    this.addBoost();
     this.edges();
+    // console.log(this.qBoost);
   }
 
   show() {
@@ -94,24 +105,40 @@ class Ship {
 
   accelerate() {
     let force_ = p5.Vector.fromAngle(this.angle);
-    if (!this.boost) {
-      force_.mult(this.qSpeed);
-    } else {
-      force_.mult(0.5);
-    }
+    force_.mult(this.qSpeed);
     this.speed.add(force_);
   }
 
-  setBoost() {
-    this.boost = true;
-  }
-
   speedUp() {
-    if (this.engine) {
+    if (this.boost) {
+      if (this.qBoost > 0) {
+        this.qSpeed = 0.3;
+        this.qBoost--;
+      } else {
+        this.qSpeed = 0.1;
+        this.boost = false;
+      }
+      this.accelerate();
+    } else if (this.engine) {
+      this.qSpeed = 0.1;
       this.accelerate();
     }
     this.pos.add(this.speed);
     this.speed.mult(0.97);
+  }
+
+  setBoost(state_) {
+    if (this.qBoost > 30) {
+      this.boost = state_;
+    } else if (!state_) {
+      this.boost = state_;
+    }
+  }
+
+  addBoost() {
+    if (this.qBoost < 180) {
+      this.qBoost += 0.1;
+    }
   }
 
   edges() {
