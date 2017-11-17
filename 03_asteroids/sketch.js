@@ -4,7 +4,7 @@ let asteroids = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 2; i++) {
     asteroids.push(new Asteroid);
   }
   // asteroid = new Asteroid();
@@ -19,6 +19,37 @@ function draw() {
     asteroids[i].show();
     asteroids[i].update();
   }
+  for (let i = 0; i < asteroids.length; i++) {
+    // console.log("i: " + i);
+    for (let k = 0; k < asteroids.length; k++) {
+      // console.log("k: " + k);
+
+      if (k != i) {
+        if (asteroids[i].collide(asteroids[k])) {
+          console.log("Auch");
+          asteroids[k].inv();
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < asteroids.length; i++) {
+    for (let k = 0; k < asteroids[i].absolutePos().length; k++) {
+      push();
+      fill(255, 50);
+      stroke(255);
+      strokeWeight(2);
+      beginShape();
+      let p_ = asteroids[i].absolutePos()[k];
+      vertex(p_.x, p_.y);
+      // }
+      endShape(CLOSE);
+      pop();
+    }
+
+  }
+
+
   if (ship.qBoost > 30) {
     stroke(255);
   } else {
@@ -26,6 +57,8 @@ function draw() {
   }
   strokeWeight(5);
   line(width, height, width, map(ship.qBoost, 0, 180, height, 0));
+
+  // noLoop();
 }
 
 function keyPressed() {
@@ -159,7 +192,7 @@ class Asteroid {
   constructor() {
 
     this.pos = createVector(random(width), random(height));
-    this.r = random(20, 80);
+    this.r = random(35, 80);
     this.sides = floor(random(5, 12));
 
     let speed_ = p5.Vector.random2D();
@@ -170,15 +203,27 @@ class Asteroid {
 
     this.offsets = [];
     for (var i = 0; i < this.sides; i++) {
-      this.offsets[i] = random(0, 35);
+      this.offsets[i] = random(15, 45);
+    }
+    this.path = this.createPath();
+
+  }
+
+  createPath() {
+    let path_ = [];
+    for (let i = 1; i <= this.sides; i++) {
+      let angle_ = TWO_PI * (i - 2) / this.sides;
+      let x_ = this.r * cos(angle_) + this.offsets[i];
+      let y_ = this.r * sin(angle_) + this.offsets[i];
+      path_.push(createVector(x_, y_));
     }
 
+    return path_;
   }
 
   update() {
     this.angle += this.qAngle;
     this.pos.add(this.speed);
-
     this.edges();
   }
 
@@ -190,12 +235,30 @@ class Asteroid {
     stroke(255);
     strokeWeight(2);
     beginShape();
-    for (var i = 0; i < this.sides; i++) {
-      let angle_ = TWO_PI * (i - 2) / this.sides;
-      vertex(this.r * cos(angle_) + this.offsets[i], this.r * sin(angle_) + this.offsets[i]);
+    for (var i = 0; i < this.path.length; i++) {
+      let p_ = this.path[i];
+      vertex(p_.x, p_.y);
     }
     endShape(CLOSE);
     pop();
+  }
+
+  collide(asteroid_) {
+    let hit = collidePolyPoly(this.absolutePos(), asteroid_.absolutePos(), true);
+
+    return hit;
+  }
+
+  absolutePos() {
+    let asbP = [];
+    for (let i = 0; i < this.path.length; i++) {
+      asbP.push(this.path[i].copy().rotate(this.angle).add(this.pos));
+    }
+    return asbP;
+  }
+
+  inv() {
+    this.speed.mult(-1);
   }
 
   edges() {
