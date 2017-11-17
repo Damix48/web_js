@@ -4,7 +4,7 @@ let asteroids = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 20; i++) {
     asteroids.push(new Asteroid);
   }
   // asteroid = new Asteroid();
@@ -32,6 +32,10 @@ function keyPressed() {
   } else if (keyCode == LEFT_ARROW) {
     ship.setSteer(-0.1);
   }
+  if (keyCode == 90) {
+    ship.setEngine(true);
+    ship.setBoost();
+  }
 
   //add boost clicking 'z'
 }
@@ -55,6 +59,8 @@ class Ship {
 
     this.engine = false;
     this.speed = createVector(0, 0);
+    this.qSpeed = 0.1;
+    this.boost = false;
   }
 
   update() {
@@ -86,15 +92,23 @@ class Ship {
     this.engine = state_;
   }
 
-  setSpeed() {
+  accelerate() {
     let force_ = p5.Vector.fromAngle(this.angle);
-    force_.mult(0.1);
+    if (!this.boost) {
+      force_.mult(this.qSpeed);
+    } else {
+      force_.mult(0.5);
+    }
     this.speed.add(force_);
+  }
+
+  setBoost() {
+    this.boost = true;
   }
 
   speedUp() {
     if (this.engine) {
-      this.setSpeed();
+      this.accelerate();
     }
     this.pos.add(this.speed);
     this.speed.mult(0.97);
