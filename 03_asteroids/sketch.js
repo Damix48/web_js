@@ -31,6 +31,13 @@ function draw() {
       }
     }
   }
+  for (let i = 0; i < asteroids.length; i++) {
+    if (ship.collide(asteroids[i])) {
+
+      console.log("Dead");
+      ship = false;
+    }
+  }
   for (let i = 0; i < lasers.length; i++) {
     lasers[i].show();
     lasers[i].update();
@@ -121,6 +128,11 @@ class Ship {
     this.qSpeed = 0.1;
     this.boost = false;
     this.qBoost = 180;
+
+    this.path = [];
+    this.path[0] = createVector(-this.side, this.side);
+    this.path[1] = createVector(this.side, this.side);
+    this.path[2] = createVector(0, -this.side);
   }
 
   update() {
@@ -137,7 +149,7 @@ class Ship {
     noFill();
     stroke(255);
     strokeWeight(2);
-    triangle(-this.side, this.side, this.side, this.side, 0, -this.side);
+    triangle(this.path[0].x, this.path[0].y, this.path[1].x, this.path[1].y, this.path[2].x, this.path[2].y);
     pop();
   }
 
@@ -193,6 +205,19 @@ class Ship {
 
   shoot() {
     lasers.push(new Laser(this.pos.copy(), this.angle));
+  }
+
+  absolutePos() {
+    let asbP = [];
+    for (let i = 0; i < this.path.length; i++) {
+      asbP.push(this.path[i].copy().rotate(this.angle).add(this.pos));
+    }
+    return asbP;
+  }
+
+  collide(target_) {
+    let hit = collidePolyPoly(this.absolutePos(), target_.absolutePos(), true);
+    return hit;
   }
 
   edges() {
@@ -274,8 +299,8 @@ class Asteroid {
     return asbP;
   }
 
-  collide(asteroid_) {
-    let hit = collidePolyPoly(this.absolutePos(), asteroid_.absolutePos(), true);
+  collide(target_) {
+    let hit = collidePolyPoly(this.absolutePos(), target_.absolutePos(), true);
     return hit;
   }
 
