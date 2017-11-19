@@ -35,7 +35,7 @@ function draw() {
     if (ship.collide(asteroids[i])) {
 
       console.log("Dead");
-      ship = false;
+      ship.pos = createVector(width / 2, height / 2);
     }
   }
   for (let i = 0; i < lasers.length; i++) {
