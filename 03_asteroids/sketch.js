@@ -1,10 +1,11 @@
 let ship;
 let asteroids = [];
+let lasers = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
-  for (var i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i++) {
     asteroids.push(new Asteroid);
   }
   // asteroid = new Asteroid();
@@ -15,15 +16,13 @@ function draw() {
   ship.show();
   ship.update();
 
-  for (var i = 0; i < asteroids.length; i++) {
+  for (let i = 0; i < asteroids.length; i++) {
     asteroids[i].show();
     asteroids[i].update();
   }
   for (let i = 0; i < asteroids.length; i++) {
-    // console.log("i: " + i);
-    for (let k = 0; k < asteroids.length; k++) {
-      // console.log("k: " + k);
 
+    for (let k = 0; k < asteroids.length; k++) {
       if (k != i) {
         if (asteroids[i].collide(asteroids[k])) {
           console.log("Auch");
@@ -31,6 +30,10 @@ function draw() {
         }
       }
     }
+  }
+  for (var i = 0; i < lasers.length; i++) {
+    lasers[i].show();
+    lasers[i].update();
   }
 
   // for (let i = 0; i < asteroids.length; i++) {
@@ -72,11 +75,11 @@ function keyPressed() {
     ship.setSteer(-0.1);
   }
   if (keyCode == 90) {
-    // ship.setEngine(true);
     ship.setBoost(true);
   }
-
-  //add boost clicking 'z'
+  if (keyCode == 32) {
+    ship.shoot();
+  }
 }
 
 function keyReleased() {
@@ -86,7 +89,6 @@ function keyReleased() {
     ship.setSteer(0);
   } else if (keyCode == 90) {
     ship.setBoost(false);
-    // ship.setEngine(false);
   }
 }
 
@@ -172,6 +174,10 @@ class Ship {
     if (this.qBoost < 180) {
       this.qBoost += 0.1;
     }
+  }
+
+  shoot() {
+    lasers.push(new Laser(this.pos.copy(), this.angle));
   }
 
   edges() {
@@ -279,5 +285,27 @@ class Asteroid {
     } else if (this.pos.y < 0) { //top->bottom
       this.pos.y = height;
     }
+  }
+}
+
+class Laser {
+  constructor(pos_, angle_) {
+    this.pos = pos_;
+    this.angle = angle_;
+    this.lenght = 15;
+
+    this.speed = p5.Vector.fromAngle(this.angle).mult(8);
+  }
+
+  show() {
+    push();
+    translate(this.pos.x, this.pos.y);
+    rotate(this.angle);
+    line(0, 0, this.lenght, 0);
+    pop();
+  }
+
+  update() {
+    this.pos.add(this.speed);
   }
 }
