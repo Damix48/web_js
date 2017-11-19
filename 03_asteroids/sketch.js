@@ -31,10 +31,27 @@ function draw() {
       }
     }
   }
-  for (var i = 0; i < lasers.length; i++) {
+  for (let i = 0; i < lasers.length; i++) {
     lasers[i].show();
     lasers[i].update();
   }
+  for (let i = 0; i < lasers.length; i++) {
+    if (lasers[i].edges()) {
+      lasers.splice(i, 1);
+    }
+  }
+
+  for (let i = 0; i < asteroids.length; i++) {
+    for (let k = 0; k < lasers.length; k++) {
+      if (asteroids[i].isLasered(lasers[k])) {
+        console.log("Lasered");
+        asteroids.splice(i, 1);
+        lasers.splice(k, 1);
+        break;
+      }
+    }
+  }
+
 
   // for (let i = 0; i < asteroids.length; i++) {
   //   for (let k = 0; k < asteroids[i].absolutePos().length; k++) {
@@ -67,7 +84,6 @@ function draw() {
 function keyPressed() {
   if (keyCode == UP_ARROW) {
     ship.setEngine(true);
-    console.log("UP");
   }
   if (keyCode == RIGHT_ARROW) {
     ship.setSteer(0.1);
@@ -112,7 +128,6 @@ class Ship {
     this.speedUp();
     this.addBoost();
     this.edges();
-    // console.log(this.qBoost);
   }
 
   show() {
@@ -251,11 +266,6 @@ class Asteroid {
     pop();
   }
 
-  collide(asteroid_) {
-    let hit = collidePolyPoly(this.absolutePos(), asteroid_.absolutePos(), true);
-    return hit;
-  }
-
   absolutePos() {
     let asbP = [];
     for (let i = 0; i < this.path.length; i++) {
@@ -264,14 +274,22 @@ class Asteroid {
     return asbP;
   }
 
+  collide(asteroid_) {
+    let hit = collidePolyPoly(this.absolutePos(), asteroid_.absolutePos(), true);
+    return hit;
+  }
+
   inv(target_) {
     let force = p5.Vector.sub(target_.pos, this.pos);
-    // let d = force.mag();
-    // d = constrain(d, 1, 25);
-    // var strength = 50 / (d * d);
-    // force.setMag(strength);
     force.normalize();
     this.speed = force.mult(-map(this.r, 35, 80, 3.2, 1.5));
+  }
+
+  isLasered(laser_) {
+    let x_ = laser_.lenght * cos(laser_.angle);
+    let y_ = laser_.lenght * sin(laser_.angle);
+    let hit = collidePointPoly(laser_.pos.x + x_, laser_.pos.y + y_, this.absolutePos());
+    return hit;
   }
 
   edges() {
@@ -294,18 +312,34 @@ class Laser {
     this.angle = angle_;
     this.lenght = 15;
 
-    this.speed = p5.Vector.fromAngle(this.angle).mult(8);
+    this.speed = p5.Vector.fromAngle(this.angle).mult(12);
   }
 
   show() {
     push();
     translate(this.pos.x, this.pos.y);
     rotate(this.angle);
+    stroke(255);
+    strokeWeight(5);
     line(0, 0, this.lenght, 0);
     pop();
   }
 
   update() {
     this.pos.add(this.speed);
+  }
+
+  edges() {
+    if (this.pos.x > width) { //right->left
+      return true;
+    } else if (this.pos.x < 0) { //left->right
+      return true;
+    }
+    if (this.pos.y > height) { //bottom->top
+      return true;
+    } else if (this.pos.y < 0) { //top->bottom
+      return true;
+    }
+    return false;
   }
 }
