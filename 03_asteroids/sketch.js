@@ -4,7 +4,7 @@ let asteroids = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < 10; i++) {
     asteroids.push(new Asteroid);
   }
   // asteroid = new Asteroid();
@@ -27,27 +27,27 @@ function draw() {
       if (k != i) {
         if (asteroids[i].collide(asteroids[k])) {
           console.log("Auch");
-          asteroids[k].inv();
+          asteroids[k].inv(asteroids[i]);
         }
       }
     }
   }
 
-  for (let i = 0; i < asteroids.length; i++) {
-    for (let k = 0; k < asteroids[i].absolutePos().length; k++) {
-      push();
-      fill(255, 50);
-      stroke(255);
-      strokeWeight(2);
-      beginShape();
-      let p_ = asteroids[i].absolutePos()[k];
-      vertex(p_.x, p_.y);
-      // }
-      endShape(CLOSE);
-      pop();
-    }
+  // for (let i = 0; i < asteroids.length; i++) {
+  //   for (let k = 0; k < asteroids[i].absolutePos().length; k++) {
+  //     push();
+  //     fill(255, 50);
+  //     stroke(255);
+  //     strokeWeight(2);
+  //     beginShape();
+  //     let p_ = asteroids[i].absolutePos()[k];
+  //     vertex(p_.x, p_.y);
+  //     // }
+  //     endShape(CLOSE);
+  //     pop();
+  //   }
 
-  }
+  // }
 
 
   if (ship.qBoost > 30) {
@@ -230,10 +230,12 @@ class Asteroid {
   show() {
     push();
     translate(this.pos.x, this.pos.y);
+    // line(0, 0, this.speed.x * 15, this.speed.y * 15); //show the direction
     rotate(this.angle);
     fill(255, 50);
     stroke(255);
     strokeWeight(2);
+
     beginShape();
     for (var i = 0; i < this.path.length; i++) {
       let p_ = this.path[i];
@@ -245,7 +247,6 @@ class Asteroid {
 
   collide(asteroid_) {
     let hit = collidePolyPoly(this.absolutePos(), asteroid_.absolutePos(), true);
-
     return hit;
   }
 
@@ -257,8 +258,14 @@ class Asteroid {
     return asbP;
   }
 
-  inv() {
-    this.speed.mult(-1);
+  inv(target_) {
+    let force = p5.Vector.sub(target_.pos, this.pos);
+    // let d = force.mag();
+    // d = constrain(d, 1, 25);
+    // var strength = 50 / (d * d);
+    // force.setMag(strength);
+    force.normalize();
+    this.speed = force.mult(-map(this.r, 35, 80, 3.2, 1.5));
   }
 
   edges() {
