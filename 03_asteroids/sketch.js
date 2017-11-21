@@ -35,7 +35,7 @@ function draw() {
     if (ship.collide(asteroids[i])) {
 
       console.log("Dead");
-      ship.pos = createVector(width / 2, height / 2);
+      ship.hit();
     }
   }
   for (let i = 0; i < lasers.length; i++) {
@@ -52,8 +52,23 @@ function draw() {
     for (let k = 0; k < lasers.length; k++) {
       if (asteroids[i].isLasered(lasers[k])) {
         console.log("Lasered");
-        asteroids.splice(i, 1);
-        lasers.splice(k, 1);
+        if (asteroids[i].r > 50) {
+          let pos_ = asteroids[i].pos.copy();
+          let pos2_ = asteroids[i].pos.copy().add(p5.Vector.random2D());
+          let r_ = asteroids[i].r;
+          asteroids.splice(i, 1);
+          lasers.splice(k, 1);
+          console.log(pos_);
+          asteroids.push(new Asteroid(r_ / 3, r_ / 2, pos_));
+          asteroids.push(new Asteroid(r_ / 3, r_ / 2, pos2_));
+          console.log(asteroids[asteroids.length - 1]);
+          console.log(asteroids[asteroids.length - 2]);
+
+
+        } else {
+          asteroids.splice(i, 1);
+          lasers.splice(k, 1);
+        }
         break;
       }
     }
@@ -76,16 +91,8 @@ function draw() {
 
   // }
 
+  // show boost
 
-  if (ship.qBoost > 30) {
-    stroke(255);
-  } else {
-    stroke(255, 50);
-  }
-  strokeWeight(5);
-  line(width, height, width, map(ship.qBoost, 0, 180, height, 0));
-
-  // noLoop();
 }
 
 function keyPressed() {
@@ -120,6 +127,8 @@ class Ship {
 
     this.pos = createVector(windowWidth / 2, windowHeight / 2);
     this.side = 15;
+    this.life = 300;
+
     this.qSteer = 0;
     this.angle = 0;
 
@@ -139,6 +148,7 @@ class Ship {
     this.steer();
     this.speedUp();
     this.addBoost();
+    this.showStats();
     this.edges();
   }
 
@@ -220,6 +230,34 @@ class Ship {
     return hit;
   }
 
+  hit() {
+    if (this.life > 0) {
+      this.life -= 10;
+    } else {
+      console.log("GAME OVER");
+      this.pos = createVector(width / 2, height / 2);
+      noLoop();
+    }
+  }
+
+  showStats() {
+    //show boost
+    push();
+    if (this.qBoost > 30) {
+      stroke(255);
+    } else {
+      stroke(255, 50);
+    }
+    strokeWeight(5);
+    line(width, height, width, map(this.qBoost, 0, 180, height, 0));
+    pop();
+
+    //show life
+    stroke(0, 255, 0, 150);
+    strokeWeight(5);
+    line(0, height, map(this.life, 0, 300, 0, width), height);
+  }
+
   edges() {
     if (this.pos.x > width) { //right->left
       this.pos.x = 0;
@@ -235,16 +273,18 @@ class Ship {
 }
 
 class Asteroid {
-  constructor() {
+  constructor(rMin_, rMax_, pos_) {
+    this.rMin = rMin_ || 60;
+    this.rMax = rMax_ || 125;
 
-    this.pos = createVector(random(width), random(height));
-    this.r = random(35, 80);
+    this.pos = pos_ || createVector(random(width), random(height));
+    this.r = random(this.rMin, this.rMax);
     this.sides = floor(random(5, 12));
 
     let speed_ = p5.Vector.random2D();
     this.speed = speed_.mult(random(1.5, 3));
 
-    this.qAngle = random(-0.05, 0.15) * 0.1;
+    this.qAngle = random(-0.05, 0.15) * 0.1 * (150 / this.r);
     this.angle = 0;
 
     this.offsets = [];
@@ -307,7 +347,9 @@ class Asteroid {
   inv(target_) {
     let force = p5.Vector.sub(target_.pos, this.pos);
     force.normalize();
-    this.speed = force.mult(-map(this.r, 35, 80, 3.2, 1.5));
+    // this.speed = force.mult(-map(this.r, this.rMin, this.rMax, 3.2, 1.5));
+    this.speed = force.mult(-150 / this.r);
+
   }
 
   isLasered(laser_) {
