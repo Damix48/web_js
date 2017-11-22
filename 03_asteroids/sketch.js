@@ -30,8 +30,7 @@ function draw() {
         }
       }
     }
-  }
-  for (let i = 0; i < asteroids.length; i++) {
+
     if (ship.collide(asteroids[i])) {
 
       console.log("Dead");
@@ -41,8 +40,6 @@ function draw() {
   for (let i = 0; i < lasers.length; i++) {
     lasers[i].show();
     lasers[i].update();
-  }
-  for (let i = 0; i < lasers.length; i++) {
     if (lasers[i].edges()) {
       lasers.splice(i, 1);
     }
@@ -51,20 +48,12 @@ function draw() {
   for (let i = 0; i < asteroids.length; i++) {
     for (let k = 0; k < lasers.length; k++) {
       if (asteroids[i].isLasered(lasers[k])) {
+        ship.pointsUp(asteroids[i].getR());
         console.log("Lasered");
-        if (asteroids[i].r > 50) {
-          let pos_ = asteroids[i].pos.copy();
-          let pos2_ = asteroids[i].pos.copy().add(p5.Vector.random2D());
-          let r_ = asteroids[i].r;
+        if (asteroids[i].getR() > 50) {
+          asteroids = asteroids.concat(asteroids[i].breakUp());
           asteroids.splice(i, 1);
           lasers.splice(k, 1);
-          console.log(pos_);
-          asteroids.push(new Asteroid(r_ / 3, r_ / 2, pos_));
-          asteroids.push(new Asteroid(r_ / 3, r_ / 2, pos2_));
-          console.log(asteroids[asteroids.length - 1]);
-          console.log(asteroids[asteroids.length - 2]);
-
-
         } else {
           asteroids.splice(i, 1);
           lasers.splice(k, 1);
@@ -73,26 +62,6 @@ function draw() {
       }
     }
   }
-
-
-  // for (let i = 0; i < asteroids.length; i++) {
-  //   for (let k = 0; k < asteroids[i].absolutePos().length; k++) {
-  //     push();
-  //     fill(255, 50);
-  //     stroke(255);
-  //     strokeWeight(2);
-  //     beginShape();
-  //     let p_ = asteroids[i].absolutePos()[k];
-  //     vertex(p_.x, p_.y);
-  //     // }
-  //     endShape(CLOSE);
-  //     pop();
-  //   }
-
-  // }
-
-  // show boost
-
 }
 
 function keyPressed() {
@@ -128,6 +97,7 @@ class Ship {
     this.pos = createVector(windowWidth / 2, windowHeight / 2);
     this.side = 15;
     this.life = 300;
+    this.points = 0;
 
     this.qSteer = 0;
     this.angle = 0;
@@ -232,7 +202,7 @@ class Ship {
 
   hit() {
     if (this.life > 0) {
-      this.life -= 10;
+      this.life -= 1;
     } else {
       console.log("GAME OVER");
       this.pos = createVector(width / 2, height / 2);
@@ -240,8 +210,15 @@ class Ship {
     }
   }
 
+  pointsUp(ast_) {
+    this.points += round(map(ast_, 30, 125, 5, 1));
+  }
+
   showStats() {
     //show boost
+    textSize(24);
+    fill(255, 150);
+    text("Boost: " + round(this.qBoost), 10, 35);
     push();
     if (this.qBoost > 30) {
       stroke(255);
@@ -253,9 +230,18 @@ class Ship {
     pop();
 
     //show life
+    fill(255, 150);
+    text("Life: " + round(this.life), 10, 60);
+
+    push();
     stroke(0, 255, 0, 150);
     strokeWeight(5);
     line(0, height, map(this.life, 0, 300, 0, width), height);
+    pop();
+
+    //show points
+    fill(255, 150);
+    text("Points: " + this.points, 10, 85);
   }
 
   edges() {
@@ -284,7 +270,7 @@ class Asteroid {
     let speed_ = p5.Vector.random2D();
     this.speed = speed_.mult(random(1.5, 3));
 
-    this.qAngle = random(-0.05, 0.15) * 0.1 * (150 / this.r);
+    this.qAngle = random(-0.05, 0.15) * 0.1 * map(this.r, this.rMin / 3, this.rMax, 2.3, 1);
     this.angle = 0;
 
     this.offsets = [];
@@ -348,7 +334,7 @@ class Asteroid {
     let force = p5.Vector.sub(target_.pos, this.pos);
     force.normalize();
     // this.speed = force.mult(-map(this.r, this.rMin, this.rMax, 3.2, 1.5));
-    this.speed = force.mult(-150 / this.r);
+    this.speed = force.mult(-map(this.r, this.rMin / 3, this.rMax, 4.5, 1.8));
 
   }
 
@@ -357,6 +343,21 @@ class Asteroid {
     let y_ = laser_.lenght * sin(laser_.angle);
     let hit = collidePointPoly(laser_.pos.x + x_, laser_.pos.y + y_, this.absolutePos());
     return hit;
+  }
+
+  breakUp() {
+    let ast_ = [];
+    let pos_ = this.pos.copy();
+    let pos2_ = this.pos.copy();
+    let r_ = this.r;
+    ast_[0] = new Asteroid(r_ / 3, r_ / 2, pos_);
+    ast_[1] = new Asteroid(r_ / 3, r_ / 2, pos2_);
+
+    return ast_;
+  }
+
+  getR() {
+    return this.r;
   }
 
   edges() {
