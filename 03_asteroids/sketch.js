@@ -1,6 +1,16 @@
 let ship;
 let asteroids = [];
 let lasers = [];
+let beginSound;
+let gameOverSound;
+let laserSound;
+
+function preload() {
+  soundFormats('mp3', 'ogg', 'wav');
+  beginSound = loadSound('sounds/begin.wav');
+  gameOverSound = loadSound('sounds/gameover.wav');
+  laserSound = loadSound('sounds/start.wav');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -8,7 +18,9 @@ function setup() {
   for (let i = 0; i < 10; i++) {
     asteroids.push(new Asteroid);
   }
-  // asteroid = new Asteroid();
+
+  beginSound.play();
+  laserSound.setVolume(0.5);
 }
 
 function draw() {
@@ -32,11 +44,11 @@ function draw() {
     }
 
     if (ship.collide(asteroids[i])) {
-
-      console.log("Dead");
+      console.log("Hit");
       ship.hit();
     }
   }
+
   for (let i = 0; i < lasers.length; i++) {
     lasers[i].show();
     lasers[i].update();
@@ -184,6 +196,7 @@ class Ship {
   }
 
   shoot() {
+    laserSound.play();
     lasers.push(new Laser(this.pos.copy(), this.angle));
   }
 
@@ -204,6 +217,7 @@ class Ship {
     if (this.life > 0) {
       this.life -= 1;
     } else {
+      gameOverSound.play();
       console.log("GAME OVER");
       this.pos = createVector(width / 2, height / 2);
       noLoop();
