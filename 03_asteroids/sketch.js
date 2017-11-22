@@ -4,12 +4,15 @@ let lasers = [];
 let beginSound;
 let gameOverSound;
 let laserSound;
+let hitSound;
+
 
 function preload() {
   soundFormats('mp3', 'ogg', 'wav');
   beginSound = loadSound('sounds/begin.wav');
   gameOverSound = loadSound('sounds/gameover.wav');
   laserSound = loadSound('sounds/start.wav');
+  hitSound = loadSound('sounds/hit3.mp3');
 }
 
 function setup() {
@@ -21,6 +24,7 @@ function setup() {
 
   beginSound.play();
   laserSound.setVolume(0.5);
+  hitSound.setVolume(0.3);
 }
 
 function draw() {
@@ -60,6 +64,7 @@ function draw() {
   for (let i = 0; i < asteroids.length; i++) {
     for (let k = 0; k < lasers.length; k++) {
       if (asteroids[i].isLasered(lasers[k])) {
+        hitSound.play();
         ship.pointsUp(asteroids[i].getR());
         console.log("Lasered");
         if (asteroids[i].getR() > 50) {
