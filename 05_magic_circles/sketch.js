@@ -1,6 +1,8 @@
 let a = 0;
 let b = 0;
-
+let c = 0;
+let b_;
+let c_;
 
 let slider;
 let sValue;
@@ -14,7 +16,8 @@ function setup() {
 
   sValue = slider.value();
 
-  // slider.changed(ciao());
+  b_ = round(random(3, 120)) / 1000;
+  c_ = round(random(3, 120)) / 1000;
 
 }
 
@@ -28,32 +31,41 @@ function draw() {
     sValue = slider.value();
     a = 0;
     b = 0;
+    c = 0;
   }
   // background(51);
-  noFill();
+  // noFill();
   stroke(255);
   strokeWeight(2);
-
   translate(width / 2, height / 2);
-  // ellipseMode(CORNER);
-  ellipse(0, 0, 500, 500);
-  rotate(a);
-  // ellipse(250 + (100 / 2), 0, 100, 100);
-  strokeWeight(7);
-  translate(250 + (100 / 2), 0);
-  rotate(b);
-  point(100 - 50, 0);
+  while (a < TWO_PI * (b_.toString().slice(-1) + 0)) {
+    push();
+    // ellipseMode(CORNER);
+    // ellipse(0, 0, 500, 500);
+    rotate(a);
+    // ellipse(250 + (100 / 2), 0, 100, 100);
+    strokeWeight(3);
+    translate(250 + (100 / 2), 0);
+    rotate(b);
+    translate(100 - 50, 0);
+    rotate(c);
+    point(50 - 25, 0);
 
-  // translate(width / 2, height / 2);
-  // rotate(a);
-  // // for (let a = 0; a < TWO_PI; a += 0.1) {
-  // // point(250, 0);
-  // translate(250, 0);
-  // rotate(a);
-  // point(125 / 2, 0);
+    // translate(width / 2, height / 2);
+    // rotate(a);
+    // // for (let a = 0; a < TWO_PI; a += 0.1) {
+    // // point(250, 0);
+    // translate(250, 0);
+    // rotate(a);
+    // point(125 / 2, 0);
 
-  a += 0.01;
-  b += sValue / 100;
+    a += 0.01;
+    b += c_;
+    c += b_;
+    pop();
+  }
+
+  // noLoop();
 
   // }
 }
