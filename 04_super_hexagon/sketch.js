@@ -3,7 +3,7 @@ let h;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  t = new Trapeze();
+  t = new Trapeze(2);
   h = new Hexagon();
 
 }
@@ -14,28 +14,32 @@ function draw() {
   // t.show();
   // t.update();
   h.show();
-
+  // t.show();
+  // noLoop();
 }
 
 class Trapeze {
-  constructor() {
+  constructor(i_) {
     this.pos = createVector(width / 2, height / 2);
     this.radius = 150;
-    // this.path = this.createPath();
+    this.i = i_;
+    this.path = this.createPath();
   }
 
   createPath() {
     let t_ = [];
-    t_[0] = createVector(this.radius * cos(TWO_PI * 1 / 6), this.radius * sin(TWO_PI * 1 / 6));
-    t_[1] = createVector(this.radius * cos(TWO_PI * 2 / 6), this.radius * sin(TWO_PI * 2 / 6));
-    t_[2] = createVector((this.radius - 20) * cos(TWO_PI * 2 / 6), (this.radius - 20) * sin(TWO_PI * 2 / 6));
-    t_[3] = createVector((this.radius - 20) * cos(TWO_PI * 1 / 6), (this.radius - 20) * sin(TWO_PI * 1 / 6));
+    t_[0] = createVector(this.radius * cos(TWO_PI * this.i / 7), this.radius * sin(TWO_PI * this.i / 7));
+    t_[1] = createVector(this.radius * cos(TWO_PI * (this.i + 1) / 7), this.radius * sin(TWO_PI * (this.i + 1) / 7));
+    t_[2] = createVector((this.radius - 30) * cos(TWO_PI * (this.i + 1) / 7), (this.radius - 30) * sin(TWO_PI * (this.i + 1) / 7));
+    t_[3] = createVector((this.radius - 30) * cos(TWO_PI * this.i / 7), (this.radius - 30) * sin(TWO_PI * this.i / 7));
 
     return t_;
   }
 
   show() {
     // translate(this.pos.x, this.pos.y); // da mettere nell'esagono quando mostra i pezzi
+    noStroke();
+    fill(255, 150);
     beginShape();
     for (let i = 0; i < 4; i++) {
       let p_ = this.createPath()[i];
@@ -54,15 +58,23 @@ class Trapeze {
 
 class Hexagon {
   constructor() {
+    this.set = [false, true, true, true, true, false, true];
     this.trapeze = this.createHexa();
-    this.set = [true, false, true, false, true, false]
   }
 
   createHexa() {
     let t_ = [];
-    for (let i = 0; i < 6; i++) {
-      t_.push(new Trapeze());
+    for (let i = 0; i < this.set.length; i++) {
+      if (this.set[i]) {
+        console.log("lol");
+        t_.push(new Trapeze(i));
+      } else {
+        t_.push(undefined);
+      }
+
     }
+    console.log(t);
+
     return t_;
   }
 
@@ -72,7 +84,8 @@ class Hexagon {
     translate(width / 2, height / 2);
     // push();
     for (let i = 0; i < this.trapeze.length; i++) {
-      rotate(TWO_PI / 6);
+      // console.log("ciao");
+      // rotate(TWO_PI / 6);
       if (this.set[i]) {
         this.trapeze[i].show();
         this.trapeze[i].update();
