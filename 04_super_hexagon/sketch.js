@@ -15,7 +15,6 @@ function setup() {
 let angle = 0;
 
 let r_ = false;
-let l_ = false;
 
 function draw() {
   background(51);
@@ -29,31 +28,22 @@ function draw() {
   PG.update();
   angle += 0.01;
 
-  if (r_) {
-    PG.setSteer(0.07);
-  } else if (l_) {
-    PG.setSteer(-0.07);
-  } else {
-    PG.setSteer(0);
+  if (keyIsDown(LEFT_ARROW) && !r_) {
+    PG.steer(-0.07);
+  } else if (keyIsDown(RIGHT_ARROW)) {
+    PG.steer(0.07);
   }
 }
 
 function keyPressed() {
   if (keyCode == RIGHT_ARROW) {
     r_ = true;
-    l_ = false;
-  } else if (keyCode == LEFT_ARROW) {
-    l_ = true;
-    r_ = false;
   }
 }
 
 function keyReleased() {
   if (keyCode == RIGHT_ARROW) {
     r_ = false;
-  }
-  if (keyCode == LEFT_ARROW) {
-    l_ = false
   }
 }
 
@@ -180,7 +170,7 @@ class Triangle {
   }
 
   update() {
-    this.steer();
+    // this.steer();
   }
 
   show() {
@@ -198,11 +188,11 @@ class Triangle {
     pop();
   }
 
-  steer() {
-    this.angle += this.qSteer;
+  steer(angle_) {
+    this.angle += angle_;
   }
 
-  setSteer(angle_) {
-    this.qSteer = angle_;
-  }
+  // setSteer(angle_) {
+  //   this.qSteer = angle_;
+  // }
 }
