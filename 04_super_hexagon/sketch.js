@@ -39,6 +39,9 @@ function keyPressed() {
   if (keyCode == RIGHT_ARROW) {
     r_ = true;
   }
+  if (keyCode == LEFT_ARROW) {
+    r_ = false;
+  }
 }
 
 function keyReleased() {
