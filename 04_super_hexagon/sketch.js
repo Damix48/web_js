@@ -14,6 +14,9 @@ function setup() {
 
 let angle = 0;
 
+let r_ = false;
+let l_ = false;
+
 function draw() {
   background(51);
   translate(width / 2, height / 2);
@@ -26,19 +29,31 @@ function draw() {
   PG.update();
   angle += 0.01;
 
+  if (r_) {
+    PG.setSteer(0.07);
+  } else if (l_) {
+    PG.setSteer(-0.07);
+  } else {
+    PG.setSteer(0);
+  }
 }
 
 function keyPressed() {
   if (keyCode == RIGHT_ARROW) {
-    PG.setSteer(0.07);
+    r_ = true;
+    l_ = false;
   } else if (keyCode == LEFT_ARROW) {
-    PG.setSteer(-0.07);
+    l_ = true;
+    r_ = false;
   }
 }
 
 function keyReleased() {
-  if (keyCode == RIGHT_ARROW || keyCode == LEFT_ARROW) {
-    PG.setSteer(0);
+  if (keyCode == RIGHT_ARROW) {
+    r_ = false;
+  }
+  if (keyCode == LEFT_ARROW) {
+    l_ = false
   }
 }
 
