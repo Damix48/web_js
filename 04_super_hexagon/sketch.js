@@ -12,14 +12,20 @@ function setup() {
 
 }
 
+let angle = 0;
 
 function draw() {
   background(51);
+  translate(width / 2, height / 2);
+  push();
+  rotate(angle);
   b.show();
+  h.show();
+  pop();
   PG.show();
   PG.update();
+  angle += 0.01;
 
-  h.show();
 }
 
 function keyPressed() {
@@ -46,7 +52,7 @@ class Background {
   show() {
     //show hexagon background
     push();
-    translate(width / 2, height / 2);
+    // translate(width / 2, height / 2);
     for (let i = 0; i < this.parts; i++) {
       noStroke();
       fill(this.colors[i]);
@@ -60,7 +66,7 @@ class Background {
 
     //show circle 
     push();
-    translate(width / 2, height / 2);
+    // translate(width / 2, height / 2);
     noStroke();
     fill(255);
     ellipse(0, 0, 80, 80);
@@ -132,7 +138,7 @@ class Hexagon {
   show() {
     noStroke();
     fill(255, 150);
-    translate(width / 2, height / 2);
+    // translate(width / 2, height / 2);
     // push();
     for (let i = 0; i < this.trapezes.length; i++) {
 
@@ -164,7 +170,7 @@ class Triangle {
 
   show() {
     push();
-    translate(this.pos.x, this.pos.y);
+    // translate(this.pos.x, this.pos.y);
 
     rotate(this.angle);
 
