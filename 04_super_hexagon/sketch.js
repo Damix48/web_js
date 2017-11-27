@@ -1,12 +1,13 @@
 let t;
-let h;
+let hs;
 let b;
 let PG;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   t = new Trapeze(2);
-  h = new Hexagon();
+  hs = [];
+  hs[0] = new Hexagon();
   b = new Background();
   PG = new Triangle();
 
@@ -19,13 +20,23 @@ let r_ = false;
 function draw() {
   background(51);
   translate(width / 2, height / 2);
+
   push();
   rotate(angle);
   b.show();
-  h.show();
+  for (let i = 0; i < hs.length; i++) {
+    hs[i].show();
+    if (hs[hs.length - 1].isPass()) {
+      hs.push(new Hexagon);
+    }
+  }
+
   pop();
+
+  // console.log(h.isPass());
   PG.show();
   PG.update();
+
   angle += 0.01;
 
   if (keyIsDown(LEFT_ARROW) && !r_) {
@@ -87,6 +98,7 @@ class Trapeze {
   constructor(i_) {
     this.pos = createVector(width / 2, height / 2);
     this.radius = 150;
+    this.mRadius = 150;
     this.i = i_;
     this.path = this.createPath();
   }
@@ -119,13 +131,32 @@ class Trapeze {
     }
   }
 
+  isPass() {
+    if (this.mRadius - 30 == this.radius) {
+      return true;
+    }
+    return false;
+  }
+
 }
 
 class Hexagon {
   constructor() {
-    this.set = [false, true, true, true, true, false];
+    this.set = this.createSet();
 
     this.trapezes = this.createHexa();
+  }
+
+  createSet() {
+    let t_ = [];
+    for (let i = 0; i < 6; i++) {
+      if (random() < 0.5) {
+        t_.push(true);
+      } else {
+        t_.push(false);
+      }
+    }
+    return t_;
   }
 
   createHexa() {
@@ -156,6 +187,15 @@ class Hexagon {
       }
     }
     // pop();
+  }
+
+  isPass() {
+    for (let i = 0; i < this.trapezes.length; i++) {
+      if (this.set[i] && this.trapezes[i].isPass()) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
