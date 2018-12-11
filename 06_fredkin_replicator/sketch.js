@@ -76,6 +76,7 @@ class Mappa {
     this.cells.forEach(row => {
       row.forEach(cell => {
         cell.show();
+        // cell.update(); pattern bello ma strano
       });
     });
   }
