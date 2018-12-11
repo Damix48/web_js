@@ -8,22 +8,22 @@ function setup() {
   mappa.cells[22][23].active = true;
   mappa.cells[25][23].active = true;
   mappa.cells[23][24].active = true;
-  mappa.cells[26][24].active = true;
+  mappa.cells[27][24].active = true;
   mappa.cells[22][25].active = true;
   mappa.cells[25][25].active = true;
   mappa.cells[23][26].active = true;
   mappa.cells[24][26].active = true;
 
-  mappa.cellsNew[23][22].active = true;
-  mappa.cellsNew[24][22].active = true;
-  mappa.cellsNew[22][23].active = true;
-  mappa.cellsNew[25][23].active = true;
-  mappa.cellsNew[23][24].active = true;
-  mappa.cellsNew[26][24].active = true;
-  mappa.cellsNew[22][25].active = true;
-  mappa.cellsNew[25][25].active = true;
-  mappa.cellsNew[23][26].active = true;
-  mappa.cellsNew[24][26].active = true;
+  // mappa.cellsNew[23][22].active = true;
+  // mappa.cellsNew[24][22].active = true;
+  // mappa.cellsNew[22][23].active = true;
+  // mappa.cellsNew[25][23].active = true;
+  // mappa.cellsNew[23][24].active = true;
+  // mappa.cellsNew[26][24].active = true;
+  // mappa.cellsNew[22][25].active = true;
+  // mappa.cellsNew[25][25].active = true;
+  // mappa.cellsNew[23][26].active = true;
+  // mappa.cellsNew[24][26].active = true;
 }
 
 function draw() {
@@ -41,7 +41,7 @@ class Mappa {
     this.w = floor(width / this.cols);
     this.h = floor(height / this.rows);
     this.cells = this.initCells();
-    this.cellsNew = this.initCells();
+    this.cellsNew = [...this.cells];
   }
 
   initCells() {
