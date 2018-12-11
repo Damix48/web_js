@@ -1,13 +1,26 @@
 let mappa;
 
 function setup() {
-  createCanvas(800, 800);
-  mappa = new Mappa(80, 80);
+  createCanvas(500, 500);
+  mappa = new Mappa(50, 50);
+  mappa.cells[23][22].active = true;
+  mappa.cells[24][22].active = true;
+  mappa.cells[22][23].active = true;
+  mappa.cells[25][23].active = true;
+  mappa.cells[23][24].active = true;
+  mappa.cells[26][24].active = true;
+  mappa.cells[22][25].active = true;
+  mappa.cells[25][25].active = true;
+  mappa.cells[23][26].active = true;
+  mappa.cells[24][26].active = true;
 }
 
 function draw() {
   background(51);
   mappa.show();
+  if (frameCount % 10 == 0) {
+    mappa.update();
+  }
 }
 
 class Mappa {
@@ -17,6 +30,7 @@ class Mappa {
     this.w = floor(width / this.cols);
     this.h = floor(height / this.rows);
     this.cells = this.initCells();
+    this.cellsNew = this.cells;
   }
 
   initCells() {
@@ -28,6 +42,34 @@ class Mappa {
       }
     }
     return temp;
+  }
+
+  countCells(i_, j_) {
+    let temp = 0;
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        if (j_ + j != -1 && i_ + i != -1 && i_ + i != this.cells.length && j_ + j != this.cells[0].length) {
+          if (this.cells[i_ + i][j_ + j].active && this.cells[i_ + i][j_ + j] != this.cells[i_][j_]) {
+            temp++;
+          }
+        }
+      }
+    }
+    return temp;
+  }
+
+  update() {
+    for (let i = 0; i < this.cols; i++) {
+      for (let j = 0; j < this.rows; j++) {
+        this.cellsNew[i][j].nearCells = this.countCells(i, j);
+      }
+    }
+    this.cells = this.cellsNew;
+    for (let i = 0; i < this.cols; i++) {
+      for (let j = 0; j < this.rows; j++) {
+        this.cells[i][j].update();
+      }
+    }
   }
 
   show() {
@@ -44,7 +86,17 @@ class Cell {
     this.x = x_;
     this.y = y_;
 
+    this.nearCells;
+
     this.active = false;
+  }
+
+  update() {
+    if (this.nearCells % 2 == 0) {
+      this.active = false;
+    } else {
+      this.active = true;
+    }
   }
 
   show() {
