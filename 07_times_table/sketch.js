@@ -16,7 +16,8 @@ function setup() {
 function draw() {
   background(51);
 
-  M = floor(map(mouseY, 0, height, M_min, M_max, true));
+  M = (map(mouseY, 0, height, M_min, M_max, true));
+  // console.log(M);
   N = floor(map(mouseX, 0, width, N_min, N_max * M / M_max, true));
 
   let h = height / (M_max - M_min);
@@ -48,7 +49,7 @@ function draw() {
     // LINES
     stroke(255, 150);
     strokeWeight(2);
-    line(points[i].x, points[i].y, points[i * M % N].x, points[i * M % N].y);
+    line(points[i].x, points[i].y, points[floor(i * M) % N].x, points[floor(i * M) % N].y);
   }
 
   // console.log(N);
