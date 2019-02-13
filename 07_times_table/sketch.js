@@ -4,7 +4,7 @@ let N_max = 300;
 let M;
 const M_min = 2;
 const M_max = 10;
-const R = 200;
+const R = 300;
 
 let points = [];
 
