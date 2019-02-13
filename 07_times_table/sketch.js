@@ -10,7 +10,7 @@ let points = [];
 
 function setup() {
   createCanvas(800, 800);
-  frameRate(5);
+  // frameRate(5);
 }
 
 function draw() {
