@@ -18,7 +18,7 @@ function draw() {
 
   M = (map(mouseY, 0, height, M_min, M_max, true));
   // console.log(M);
-  N = floor(map(mouseX, 0, width, N_min, N_max * M / M_max, true));
+  N = floor(map(mouseX, 0, width, N_min, N_max, true));
 
   let h = height / (M_max - M_min);
   for (let i = 0; i < M_max - M_min; i++) {
