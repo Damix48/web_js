@@ -15,7 +15,7 @@ function setup() {
 function draw() {
   background(51);
   translate(width / 2, height / 2 - 70);
-  rotate(PI)
+  rotate(PI);
 
   for (let i = 0; i < points.length; i++) {
     const p = points[i];
