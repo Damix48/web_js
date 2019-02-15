@@ -1,7 +1,5 @@
-// (x²+y²+1)³-x²y³=0
 let points = [];
 let n = 0;
-
 
 function setup() {
   createCanvas(800, 800);
@@ -10,7 +8,6 @@ function setup() {
     let y = 13 * cos(i) - 5 * cos(2 * i) - 2 * cos(3 * i) - cos(4 * i);
 
     points.push(createVector(20 * x, 20 * y));
-
   }
   frameRate(1);
 }
@@ -34,7 +31,6 @@ function draw() {
     point(p.x, p.y);
     strokeWeight(5);
     line(p.x, p.y, p_1.x, p_1.y);
-
   }
 
   n++;
