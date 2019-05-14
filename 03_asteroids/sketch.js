@@ -6,6 +6,9 @@ let gameOverSound;
 let laserSound;
 let hitSound;
 
+let phase = 0;
+
+
 
 function preload() {
   soundFormats('mp3', 'ogg', 'wav');
@@ -284,7 +287,7 @@ class Asteroid {
 
     this.pos = pos_ || createVector(random(width), random(height));
     this.r = random(this.rMin, this.rMax);
-    this.sides = floor(random(5, 12));
+    this.sides = floor(random(5, 12)) * 2;
 
     let speed_ = p5.Vector.random2D();
     this.speed = speed_.mult(random(1.5, 3));
@@ -294,7 +297,7 @@ class Asteroid {
 
     this.offsets = [];
     for (var i = 0; i < this.sides; i++) {
-      this.offsets[i] = random(15, 45);
+      this.offsets[i] = random(4, 22);
     }
     this.path = this.createPath();
 
@@ -302,13 +305,25 @@ class Asteroid {
 
   createPath() {
     let path_ = [];
-    for (let i = 1; i <= this.sides; i++) {
-      let angle_ = TWO_PI * (i - 2) / this.sides;
-      let x_ = this.r * cos(angle_) + this.offsets[i];
-      let y_ = this.r * sin(angle_) + this.offsets[i];
+    for (let i = 0; i < this.sides; i++) {
+      let angle = TWO_PI * i / (this.sides)
+      let xoff = map(cos(angle + phase), -1, 1, 0, 3);
+      let yoff = map(sin(angle + phase), -1, 1, 0, 3);
+      let r_ = map(noise(xoff, yoff, 0), 0, 1, (this.rMin - this.offsets[i] - 7), (this.rMax + 12) * 1.2);
+      let x_ = r_ * cos(angle);
+      let y_ = r_ * sin(angle);
       path_.push(createVector(x_, y_));
     }
 
+    // OLD GENERATOR
+    // for (let i = 1; i <= this.sides; i++) {
+    //   let angle_ = TWO_PI * (i - 2) / this.sides;
+    //   let x_ = this.r * cos(angle_) + this.offsets[i];
+    //   let y_ = this.r * sin(angle_) + this.offsets[i];
+    //   path_.push(createVector(x_, y_));
+    // }
+
+    phase = phase + 0.403;
     return path_;
   }
 
@@ -369,8 +384,8 @@ class Asteroid {
     let pos_ = this.pos.copy();
     let pos2_ = this.pos.copy();
     let r_ = this.r;
-    ast_[0] = new Asteroid(r_ / 3, r_ / 2, pos_);
-    ast_[1] = new Asteroid(r_ / 3, r_ / 2, pos2_);
+    ast_[0] = new Asteroid(r_ / 3 + random(15, 30), r_ / 2 + random(15, 30), pos_);
+    ast_[1] = new Asteroid(r_ / 3 + random(0, 30), r_ / 2 + random(0, 30), pos2_);
 
     return ast_;
   }
