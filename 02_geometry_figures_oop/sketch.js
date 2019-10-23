@@ -112,7 +112,7 @@ class Dots {
   constructor(path_) {
     let sides_ = path_.length;
     let a_ = PI / (sides_);
-    let speed_ = (((number - sides_) / 2 * (sides_)) / 1000);
+    let speed_ = (((number - sides_) / 2 * (sides_)) / 700);
     let position_ = path_[0];
 
     this.positionT = position_;
